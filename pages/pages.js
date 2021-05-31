@@ -1,4 +1,4 @@
-const { waitFor } = require("../../puppeteer-better-utils");
+const { waitFor } = require("../puppeteer-better-utils");
 
 async function homePage(browser, bundleInfo) {
   const page = await browser.newPage();

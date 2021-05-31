@@ -8,7 +8,7 @@ const {
   get,
   delay,
   waitForText,
-} = require("../../puppeteer-better-utils");
+} = require("../puppeteer-better-utils");
 const { homePage } = require("./pages");
 
 async function setupWalletAction(browser, bundleInfo) {

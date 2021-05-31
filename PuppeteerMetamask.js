@@ -12,7 +12,7 @@ const {
   waitForText,
   type,
   delay,
-} = require("../puppeteer-better-utils");
+} = require("./puppeteer-better-utils");
 const { setupWalletAction } = require("./pages/actions");
 require("dotenv").config();
 
