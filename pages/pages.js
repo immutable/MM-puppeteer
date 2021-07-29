@@ -59,20 +59,21 @@ const importAccountPageElements = {
 async function findNotificationPage(browser, bundleInfo) {
   return waitFor(async () => {
     await browser.waitForTarget((target) =>
-      target
-        .url()
-        .startsWith(
-          `chrome-extension://${bundleInfo.extensionId}/notification.html`
-        )
+      target.url().startsWith(
+        `chrome-extension://${bundleInfo.extensionId}/notification.html`
+      ) || 
+      target.url().startsWith(
+        `chrome-extension://${bundleInfo.extensionId}/home.html`
+      )
     );
     const pages = await browser.pages();
 
     const notificationPages = pages.filter((p) =>
-      p
-        .url()
-        .startsWith(
-          `chrome-extension://${bundleInfo.extensionId}/notification.html`
-        )
+      p.url().startsWith(
+        `chrome-extension://${bundleInfo.extensionId}/notification.html`
+      ) || p.url().startsWith(
+        `chrome-extension://${bundleInfo.extensionId}/home.html`
+      )
     );
 
     console.assert(
