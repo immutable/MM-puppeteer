@@ -16,25 +16,7 @@ jobs:
 
       - name: Use Node.js 14.15.1
         uses: actions/setup-node@v1
+
+      - uses: JS-DevTools/npm-publish@v1
         with:
-          node-version: 14.15.1
-
-      - name: Install packages
-        run: yarn install
-
-      - name: Build
-        run: yarn build
-
-      - name: Setup Git
-        if: ${{ github.ref == 'refs/heads/develop' }}
-        run: |
-          git config --global user.email "ci@immutable.com"
-          git config --global user.name "CI"
-
-      - name: Publish package
-        if: ${{ github.ref == 'refs/heads/develop' }}
-        run: "scripts/npm-login.sh && yarn lerna publish patch --yes --message 'NPM Release'"
-        env:
-          GH_TOKEN: ${{ secrets.PAT }}
-          GITHUB_TOKEN: ${{ secrets.PAT }}
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          token: ${{ secrets.PLATFORM_SA_NPM_TOKEN }}
