@@ -139,7 +139,6 @@ class PuppeteerMetamask {
       this.metamaskBundleInfo
     );
     await notificationPage.bringToFront();
-
     return notificationPage;
   }
 
@@ -163,11 +162,6 @@ class PuppeteerMetamask {
 
   async allowToConnect() {
     const notificationPage = await this.getNotificationPage();
-    // This code only needed if we have only one wallet
-    // await click(
-    //   notificationPage,
-    //   notificationPageElements.connectAccount.nextButton
-    // );
     await click(
       notificationPage,
       notificationPageElements.connectApproval.connectButton

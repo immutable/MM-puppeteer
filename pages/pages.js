@@ -1,12 +1,9 @@
 const { waitFor } = require("../puppeteer-better-utils");
-
 async function homePage(browser, bundleInfo) {
   const page = await browser.newPage();
   await page.goto(`chrome-extension://${bundleInfo.extensionId}/home.html`);
-
   return page;
 }
-
 const homePageElements = {
   networkSwitcher: {
     button: "div.app-header__network-component-wrapper > div",
@@ -42,14 +39,12 @@ const homePageElements = {
     importAccount: "#app-content > div > div.account-menu > div:nth-child(7)",
   },
 };
-
 const switchNetworkElements = {
   selectedNetwork:
     "#app-content > div > div.app-header.app-header--back-drop > div > div.app-header__account-menu-container > div.app-header__network-component-wrapper > div",
   robstenSelection:
     "#app-content > div > div.menu-droppo-container.network-droppo > div > li:nth-child(4)",
 };
-
 const importAccountPageElements = {
   privateKeyBox: "#private-key-box",
   importButton:
@@ -57,32 +52,17 @@ const importAccountPageElements = {
 };
 
 async function findNotificationPage(browser, bundleInfo) {
+  const notificationUrl = `chrome-extension://${bundleInfo.extensionId}/notification.html`;
   return waitFor(async () => {
     await browser.waitForTarget((target) =>
-      target.url().startsWith(
-        `chrome-extension://${bundleInfo.extensionId}/notification.html`
-      ) || 
-      target.url().startsWith(
-        `chrome-extension://${bundleInfo.extensionId}/home.html`
-      )
+      target.url().includes(notificationUrl)
     );
     const pages = await browser.pages();
-
-    const notificationPages = pages.filter((p) =>
-      p.url().startsWith(
-        `chrome-extension://${bundleInfo.extensionId}/notification.html`
-      ) || p.url().startsWith(
-        `chrome-extension://${bundleInfo.extensionId}/home.html`
-      )
+    const notificationPages = pages.filter((page) =>
+      page.url().includes(notificationUrl)
     );
-
-    console.assert(
-      notificationPages.length === 1,
-      "Couldn't find notification page!"
-    );
-
     return notificationPages[0];
-  });
+  }, 15);
 }
 
 const notificationPageElements = {
